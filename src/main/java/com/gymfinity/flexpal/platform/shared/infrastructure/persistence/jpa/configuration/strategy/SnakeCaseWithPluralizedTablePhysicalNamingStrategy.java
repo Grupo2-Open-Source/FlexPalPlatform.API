@@ -1,4 +1,4 @@
-package com.gymfinity.flexpal.platform.shared.infrastructure.persistance.jpa.configuration.strategy;
+package com.gymfinity.flexpal.platform.shared.infrastructure.persistence.jpa.configuration.strategy;
 
 import org.hibernate.boot.model.naming.Identifier;
 import org.hibernate.boot.model.naming.PhysicalNamingStrategy;
