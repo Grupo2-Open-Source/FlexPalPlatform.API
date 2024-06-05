@@ -10,20 +10,18 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class OpenApiConfiguration {
     @Bean
-    public OpenAPI learningPlatformOpenApi() {
-        var openApi = new OpenAPI();
-        openApi
+    public OpenAPI flexPalPlatformApi() {
+        var OpenApi = new OpenAPI();
+        OpenApi
                 .info(new Info()
                         .title("Flex Pal Platform API")
-                        .description("Gymfinity Flex Pal Platform application REST API documentation.")
+                        .description("Flex Pal Platform application REST API documentation.")
                         .version("v1.0.0")
                         .license(new License().name("Apache 2.0")
                                 .url("https://springdoc.org")))
                 .externalDocs(new ExternalDocumentation()
-                        .description("Gymfinity Flex Pal Platform Documentation")
-                        .url("https://gymfinity-flex-pal-platform.wiki.github.io/docs"));
-
-        return openApi;
+                        .description("Flex Pal Platform wiki Documentation")
+                        .url("https://flex-pal-platform.wiki.github.io/docs"));
+        return OpenApi;
     }
 }
-
