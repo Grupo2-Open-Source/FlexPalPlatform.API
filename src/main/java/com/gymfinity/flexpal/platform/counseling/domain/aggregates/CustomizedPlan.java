@@ -1,6 +1,6 @@
-package com.gymfinity.flexpal.platform.counseling.domain.model.aggregates;
+package com.gymfinity.flexpal.platform.counseling.domain.aggregates;
 
-import com.gymfinity.flexpal.platform.counseling.domain.model.valueobjects.RoutineItem;
+import com.gymfinity.flexpal.platform.counseling.domain.valueobjects.RoutineItem;
 import com.gymfinity.flexpal.platform.shared.domain.model.aggregates.AuditableAbstractAggregateRoot;
 import jakarta.persistence.*;
 

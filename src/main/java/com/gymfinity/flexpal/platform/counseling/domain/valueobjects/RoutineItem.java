@@ -1,4 +1,4 @@
-package com.gymfinity.flexpal.platform.counseling.domain.model.valueobjects;
+package com.gymfinity.flexpal.platform.counseling.domain.valueobjects;
 
 import jakarta.persistence.Embeddable;
 
