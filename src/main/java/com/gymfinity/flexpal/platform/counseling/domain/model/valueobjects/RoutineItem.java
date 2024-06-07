@@ -1,4 +1,4 @@
-package com.gymfinity.flexpal.platform.counseling.domain.valueobjects;
+package com.gymfinity.flexpal.platform.counseling.domain.model.valueobjects;
 
 import jakarta.persistence.Embeddable;
 
@@ -9,6 +9,7 @@ public record RoutineItem(String exercise,
                           int reps,
                           int weight,
                           int restTime){
+
     public RoutineItem(){
         this(null, null, 0, 0, 0, 0);
     }
@@ -45,5 +46,4 @@ public record RoutineItem(String exercise,
             throw new IllegalArgumentException("Rest time must not be null or blank");
         }
     }
-
 }
