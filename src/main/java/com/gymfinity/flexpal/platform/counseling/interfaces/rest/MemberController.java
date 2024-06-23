@@ -25,7 +25,7 @@ public class MemberController {
     }
 
     @PostMapping
-    public ResponseEntity<MemberResource>createMember(@RequestBody CreateMemberResource resource){
+    public ResponseEntity<MemberResource> createMember(@RequestBody CreateMemberResource resource){
         var createMemberCommand = CreateMemberCommandFromResourceAssembler.toCommandFromResource(resource);
         var memberId = memberCommandService.handle(createMemberCommand);
         if (memberId.isEmpty()){
@@ -33,18 +33,23 @@ public class MemberController {
         }
         var getMemberByIdQuery = new GetMemberByIdQuery(memberId.get().getId());
         var member = memberQueryService.handle(getMemberByIdQuery);
-        var memberResource = MemberResourceFromEntityAssembler.toResourceFromEntity(member);
-        return ResponseEntity.ok(memberResource);
+        if (member.isPresent()) {
+            var memberResource = MemberResourceFromEntityAssembler.toResourceFromEntity(member.get());
+            return ResponseEntity.ok(memberResource);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @GetMapping(value = "/{memberId}")
     public ResponseEntity<MemberResource> getMemberById(@PathVariable Long memberId){
         var getMemberByIdQuery = new GetMemberByIdQuery(memberId);
         var member = memberQueryService.handle(getMemberByIdQuery);
-        if (member.isEmpty()){
+        if (member.isPresent()){
+            var memberResource = MemberResourceFromEntityAssembler.toResourceFromEntity(member.get());
+            return ResponseEntity.ok(memberResource);
+        } else {
             return ResponseEntity.notFound().build();
         }
-        var memberResource = MemberResourceFromEntityAssembler.toResourceFromEntity(member);
-        return ResponseEntity.ok(memberResource);
     }
 }

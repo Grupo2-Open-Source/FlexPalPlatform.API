@@ -1,4 +1,6 @@
 package com.gymfinity.flexpal.platform.counseling.domain.model.queries;
 
-public record GetMemberByCustomizedPlanQuery(Long customizedPlanId) {
+import com.gymfinity.flexpal.platform.counseling.domain.model.aggregates.CustomizedPlan;
+
+public record GetMemberByCustomizedPlanQuery(CustomizedPlan customizedPlanId) {
 }

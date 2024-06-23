@@ -1,5 +1,6 @@
 package com.gymfinity.flexpal.platform.counseling.interfaces.rest;
 
+import com.gymfinity.flexpal.platform.counseling.domain.model.queries.GetAllCustomizedPlansQuery;
 import com.gymfinity.flexpal.platform.counseling.domain.model.queries.GetCustomizedPlanByIdQuery;
 import com.gymfinity.flexpal.platform.counseling.domain.services.commandservices.CustomizedPlanCommandService;
 import com.gymfinity.flexpal.platform.counseling.domain.services.queryservices.CustomizedPlanQueryService;
@@ -10,6 +11,8 @@ import com.gymfinity.flexpal.platform.counseling.interfaces.rest.transform.Custo
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/api/v1/customized-plans")
@@ -34,18 +37,31 @@ public class CustomizedPlanController {
         }
         var getCustomizedPlanByIdQuery = new GetCustomizedPlanByIdQuery(customizedPlanId.get().getId());
         var customizedPlan = customizedPlanQueryService.handle(getCustomizedPlanByIdQuery);
-        var customizedPlanResource = CustomizedPlanResourceFromEntityAssembler.toResourceFromEntity(customizedPlan);
-        return ResponseEntity.ok(customizedPlanResource);
+        if (customizedPlan.isPresent()) {
+            var customizedPlanResource = CustomizedPlanResourceFromEntityAssembler.toResourceFromEntity(customizedPlan.get());
+            return ResponseEntity.ok(customizedPlanResource);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @GetMapping(value = "/{customizedPlanId}")
     public ResponseEntity<CustomizedPlanResource> getCustomizedPlanById(@PathVariable Long customizedPlanId) {
         var getCustomizedPlanByIdQuery = new GetCustomizedPlanByIdQuery(customizedPlanId);
         var customizedPlan = customizedPlanQueryService.handle(getCustomizedPlanByIdQuery);
-        if (customizedPlan.isEmpty()) {
+        if (customizedPlan.isPresent()) {
+            var customizedPlanResource = CustomizedPlanResourceFromEntityAssembler.toResourceFromEntity(customizedPlan.get());
+            return ResponseEntity.ok(customizedPlanResource);
+        } else {
             return ResponseEntity.notFound().build();
         }
-        var customizedPlanResource = CustomizedPlanResourceFromEntityAssembler.toResourceFromEntity(customizedPlan);
-        return ResponseEntity.ok(customizedPlanResource);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<CustomizedPlanResource>> getAllCustomizedPlans() {
+        var getAllCustomizedPlansQuery = new GetAllCustomizedPlansQuery();
+        var customizedPlans = customizedPlanQueryService.handle(getAllCustomizedPlansQuery);
+        var customizedPlanResources = customizedPlans.stream().map(CustomizedPlanResourceFromEntityAssembler::toResourceFromEntity).toList();
+        return ResponseEntity.ok(customizedPlanResources);
     }
 }
