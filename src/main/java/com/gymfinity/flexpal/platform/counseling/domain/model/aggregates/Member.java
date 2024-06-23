@@ -1,53 +1,54 @@
 package com.gymfinity.flexpal.platform.counseling.domain.model.aggregates;
 
-import com.gymfinity.flexpal.platform.counseling.domain.model.commands.CreateMemberCommand;
-import com.gymfinity.flexpal.platform.counseling.domain.model.valueobjects.MemberId;
 import com.gymfinity.flexpal.platform.counseling.domain.model.valueobjects.ProfileId;
+import com.gymfinity.flexpal.platform.counseling.domain.model.valueobjects.SubscriptionId;
 import com.gymfinity.flexpal.platform.shared.domain.model.aggregates.AuditableAbstractAggregateRoot;
-import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.JoinColumn;
 import lombok.Getter;
-import org.apache.logging.log4j.util.Strings;
+import lombok.Setter;
 
+@Setter
+@Getter
 @Entity
 public class Member extends AuditableAbstractAggregateRoot<Member> {
 
     @Embedded
     private ProfileId profileId;
 
+    @ManyToOne
+    @JoinColumn(name = "customized_plan_id")
+    private CustomizedPlan customizedPlan;
+
+    @ManyToOne
+    @JoinColumn(name = "coach_id")
+    private Coach coachId;
+
     @Embedded
-    @Column(name = "member_id")
-    private MemberId memberId;
+    private SubscriptionId subscriptionId;
 
-    @Getter
-    private String objective;
-    @Getter
-    private String levelOfExperience;
+    public Member() {
+        this.customizedPlan = null;
+        this.coachId = null;
+        this.subscriptionId = null;
+    }
 
-    public Member(){
-        this.profileId = new ProfileId();
-        this.memberId = new MemberId();
-        this.objective = Strings.EMPTY;
-        this.levelOfExperience = Strings.EMPTY;
+    public Member(ProfileId profileId) {
+        this();
+        this.profileId = profileId;
     }
 
     public Member(Long profileId) {
+        this();
         this.profileId = new ProfileId(profileId);
     }
 
-    public Member(CreateMemberCommand command){
-        this();
-        this.objective = command.objective();
-        this.levelOfExperience = command.levelOfExperience();
-    }
-
-
-    public Member UpdateInformation(String objective, String levelOfExperience){
-        this.objective = objective;
-        this.levelOfExperience = levelOfExperience;
+    public Member updateInformation(String name, String email, CustomizedPlan customizedPlan, Coach coach, SubscriptionId subscriptionId) {
+        this.customizedPlan = customizedPlan;
+        this.coachId = coach;
+        this.subscriptionId = subscriptionId;
         return this;
     }
-
-    public String getMemberId() { return this.memberId.memberId(); }
 }

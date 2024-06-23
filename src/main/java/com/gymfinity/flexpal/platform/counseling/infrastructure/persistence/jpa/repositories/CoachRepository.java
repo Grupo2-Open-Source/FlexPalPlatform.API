@@ -2,16 +2,15 @@ package com.gymfinity.flexpal.platform.counseling.infrastructure.persistence.jpa
 
 import com.gymfinity.flexpal.platform.counseling.domain.model.aggregates.Coach;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-import java.util.List;
 import java.util.Optional;
 
+@Repository
 public interface CoachRepository extends JpaRepository<Coach, Long> {
-    Optional<Coach> findByCoachId(Long Id);
-
-    List<Coach> findByLengthOfService(int lengthOfService);
-
-    List<Coach> findBySpecialty(String specialty);
-
-    List<Coach> findAllCoaches();
+    Optional<Coach> findBySpecialization(String specialization);
+    Optional<Coach> findById(Long id);
+    Optional<Coach> findByName(String name);
+    Optional<Coach> findByEmail(String email);
+    Optional<Coach> findByProfileId(Long profileId);
 }

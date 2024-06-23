@@ -1,60 +1,47 @@
 package com.gymfinity.flexpal.platform.counseling.domain.model.aggregates;
 
-import com.gymfinity.flexpal.platform.counseling.domain.model.commands.CreateCoachCommand;
-import com.gymfinity.flexpal.platform.counseling.domain.model.valueobjects.CoachId;
 import com.gymfinity.flexpal.platform.counseling.domain.model.valueobjects.ProfileId;
 import com.gymfinity.flexpal.platform.shared.domain.model.aggregates.AuditableAbstractAggregateRoot;
-import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
 import lombok.Getter;
-import org.apache.logging.log4j.util.Strings;
+import lombok.Setter;
 
+import java.util.List;
+
+@Setter
+@Getter
 @Entity
 public class Coach extends AuditableAbstractAggregateRoot<Coach> {
 
-    @Embedded
-    @Column(name = "coach_id")
-    private CoachId coachId;
+    private String specialization;
 
     @Embedded
     private ProfileId profileId;
 
-    @Getter
-    private String specialty;
-    @Getter
-    private int lengthOfService;
+    @OneToMany(mappedBy = "coach")
+    private List<Member> members; // lista de miembros (opcional)
 
-    public Coach(){
-        this.profileId = new ProfileId();
-        this.coachId = new CoachId();
-        this.specialty = Strings.EMPTY;
-        this.lengthOfService = 0;
+    public Coach() {
+        this.specialization = "";
     }
 
-    public Coach(Long profileId) {
-        this.profileId = new ProfileId(profileId);
-    }
-
-    public Coach(ProfileId profileId, String specialty, int lengthOfService){
+    public Coach(ProfileId profileId, String specialization) {
         this();
         this.profileId = profileId;
-        this.specialty = specialty;
-        this.lengthOfService = lengthOfService;
+        this.specialization = specialization;
     }
 
-    public Coach(CreateCoachCommand command){
+    public Coach(Long profileId, String specialization) {
         this();
-        this.specialty = command.specialty();
-        this.lengthOfService = command.lengthOfService();
+        this.profileId = new ProfileId(profileId);
+        this.specialization = specialization;
     }
 
-    public Coach UpdateInformation(String specialty, int lengthOfService){
-        this.specialty = specialty;
-        this.lengthOfService = lengthOfService;
+    public Coach updateInformation(String name, String email, String specialization) {
+        this.specialization = specialization;
         return this;
     }
-
-    public String getCoachId() { return this.coachId.coachId(); }
 
 }

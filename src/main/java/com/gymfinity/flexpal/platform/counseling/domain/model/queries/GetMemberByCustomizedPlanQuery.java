@@ -1,4 +1,4 @@
 package com.gymfinity.flexpal.platform.counseling.domain.model.queries;
 
-public record GetMemberByIdQuery(Long memberId) {
+public record GetMemberByCustomizedPlanQuery(Long customizedPlanId) {
 }

@@ -1,52 +1,63 @@
 package com.gymfinity.flexpal.platform.counseling.domain.model.aggregates;
 
-import com.gymfinity.flexpal.platform.counseling.domain.model.commands.CreateCustomizedPlanCommand;
-import com.gymfinity.flexpal.platform.counseling.domain.model.valueobjects.CoachId;
-import com.gymfinity.flexpal.platform.counseling.domain.model.valueobjects.FoodInformationItem;
-import com.gymfinity.flexpal.platform.counseling.domain.model.valueobjects.MemberId;
-import com.gymfinity.flexpal.platform.counseling.domain.model.valueobjects.RoutineItem;
+import com.gymfinity.flexpal.platform.counseling.domain.model.commands.CreateCustomizePlanCommand;
 import com.gymfinity.flexpal.platform.shared.domain.model.aggregates.AuditableAbstractAggregateRoot;
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
+import lombok.Getter;
+import lombok.Setter;
 
+import java.util.List;
+
+@Setter
+@Getter
 @Entity
 public class CustomizedPlan extends AuditableAbstractAggregateRoot<CustomizedPlan> {
-    @Embedded
-    @AttributeOverrides({
-            @AttributeOverride(name = "exercise", column = @Column(name = "routine_name")),
-            @AttributeOverride(name = "exerciseType", column = @Column(name = "routine_type")),
-            @AttributeOverride(name = "sets", column = @Column(name = "routine_sets")),
-            @AttributeOverride(name = "reps", column = @Column(name = "routine_reps")),
-            @AttributeOverride(name = "weight", column = @Column(name = "routine_weight")),
-            @AttributeOverride(name = "restTime", column = @Column(name = "routine_rest_time"))})
-    private RoutineItem Routine;
+    private String name;
+    private int coachId;
+    private int memberId;
+    private String goal;
+    private String benefits;
+    private String plan;
 
-    @Embedded
-    @AttributeOverrides({
-            @AttributeOverride(name = "foodName", column = @Column(name = "food_name")),
-            @AttributeOverride(name = "foodType", column = @Column(name = "food_type")),
-            @AttributeOverride(name = "calories", column = @Column(name = "food_calories")),
-            @AttributeOverride(name = "mealTime", column = @Column(name = "food_meal_time"))
-    })
-    private FoodInformationItem FoodInformation;
+    @OneToMany(mappedBy = "customizedPlan")
+    private List<Member> members; // lista de miembros (opcional)
 
-    @Embedded
-    private CoachId coachId;
+    public CustomizedPlan() {
+        this.name = "";
+        this.coachId = 0;
+        this.memberId = 0;
+        this.goal = "";
+        this.benefits = "";
+        this.plan = "";
+    }
 
-    @Embedded
-    private MemberId memberId;
+    public CustomizedPlan(String name, int coachId, int memberId, String goal, String benefits, String plan) {
+        this();
+        this.name = name;
+        this.coachId = coachId;
+        this.memberId = memberId;
+        this.goal = goal;
+        this.benefits = benefits;
+        this.plan = plan;
+    }
 
-    public CustomizedPlan(CreateCustomizedPlanCommand command) {
-        this.Routine = command.routineItem();
-        this.FoodInformation = command.foodInformationItem();
+    public CustomizedPlan(CreateCustomizePlanCommand command) {
+        this.name = command.name();
         this.coachId = command.coachId();
         this.memberId = command.memberId();
+        this.goal = command.goal();
+        this.benefits = command.benefits();
+        this.plan = command.plan();
     }
 
-    public CustomizedPlan(){}
-
-    public String getRoutineItem(){
-        return Routine.getRoutineItem();
+    public CustomizedPlan updateInformation(String name, int coachId, int memberId, String goal, String benefits, String plan) {
+        this.name = name;
+        this.coachId = coachId;
+        this.memberId = memberId;
+        this.goal = goal;
+        this.benefits = benefits;
+        this.plan = plan;
+        return this;
     }
-
-    public String getFoodInformationItem(){ return FoodInformation.getFoodInformationItem(); }
 }

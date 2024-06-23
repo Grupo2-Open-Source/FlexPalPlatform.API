@@ -9,6 +9,7 @@ public record ProfileId(Long profileId) {
             throw new IllegalArgumentException("Profile profileId cannot be negative");
         }
     }
+
     public ProfileId() {
         this(0L);
     }

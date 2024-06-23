@@ -1,16 +1,17 @@
 package com.gymfinity.flexpal.platform.counseling.interfaces.rest.transform;
 
-import com.gymfinity.flexpal.platform.counseling.domain.model.commands.CreateCustomizedPlanCommand;
-import com.gymfinity.flexpal.platform.counseling.domain.model.valueobjects.FoodInformationItem;
-import com.gymfinity.flexpal.platform.counseling.domain.model.valueobjects.RoutineItem;
-import com.gymfinity.flexpal.platform.counseling.interfaces.rest.resource.CreateCustomizedPlanResource;
+import com.gymfinity.flexpal.platform.counseling.domain.model.commands.CreateCustomizePlanCommand;
+import com.gymfinity.flexpal.platform.counseling.interfaces.rest.resources.CreateCustomizedPlanResource;
 
 public class CreateCustomizedPlanCommandFromResourceAssembler {
-    public static CreateCustomizedPlanCommand fromResource(CreateCustomizedPlanResource resource) {
-        return new CreateCustomizedPlanCommand(resource.routineItem(),
-                                              resource.foodInformationItem(),
-                                              resource.coachId(),
-                                              resource.memberId(),
-                                              resource.id());
-                  }
+    public static CreateCustomizePlanCommand toCommandFromResource(CreateCustomizedPlanResource resource) {
+        return new CreateCustomizePlanCommand(
+            resource.name(),
+            resource.coachId(),
+            resource.memberId(),
+            resource.goal(),
+            resource.benefits(),
+            resource.plan()
+        );
+    }
 }
