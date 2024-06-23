@@ -12,8 +12,4 @@ public interface CoachQueryService {
     Optional<Coach> handle(GetCoachByIdQuery query);
 
     Optional<Coach> handle(GetCoachBySpecializationQuery query);
-
-    Optional<Coach> handle(GetCoachByNameQuery query);
-
-    Optional<Coach> handle(GetCoachByEmailQuery query);
 }

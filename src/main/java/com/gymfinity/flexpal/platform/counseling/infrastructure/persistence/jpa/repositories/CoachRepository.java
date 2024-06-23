@@ -10,7 +10,5 @@ import java.util.Optional;
 public interface CoachRepository extends JpaRepository<Coach, Long> {
     Optional<Coach> findBySpecialization(String specialization);
     Optional<Coach> findById(Long id);
-    Optional<Coach> findByName(String name);
-    Optional<Coach> findByEmail(String email);
     Optional<Coach> findByProfileId(Long profileId);
 }

@@ -3,6 +3,7 @@ package com.gymfinity.flexpal.platform.counseling.application.internal.commandse
 import com.gymfinity.flexpal.platform.counseling.application.internal.outboundservices.acl.ExternalProfileService;
 import com.gymfinity.flexpal.platform.counseling.domain.model.aggregates.Coach;
 import com.gymfinity.flexpal.platform.counseling.domain.model.commands.CreateCoachCommand;
+import com.gymfinity.flexpal.platform.counseling.domain.model.commands.UpdateCoachCommand;
 import com.gymfinity.flexpal.platform.counseling.domain.services.commandservices.CoachCommandService;
 import com.gymfinity.flexpal.platform.counseling.infrastructure.persistence.jpa.repositories.CoachRepository;
 import org.springframework.stereotype.Service;
@@ -37,5 +38,10 @@ public class CoachCommandServiceImpl implements CoachCommandService {
         var coach = new Coach(profileId.get().profileId(), command.specialization());
         coachRepository.save(coach);
         return Optional.of(coach);
+    }
+
+    @Override
+    public Optional<Coach> handle(UpdateCoachCommand command) {
+        return Optional.empty();
     }
 }

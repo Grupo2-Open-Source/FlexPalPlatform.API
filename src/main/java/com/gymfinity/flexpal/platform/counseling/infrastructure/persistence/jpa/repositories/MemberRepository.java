@@ -1,5 +1,6 @@
 package com.gymfinity.flexpal.platform.counseling.infrastructure.persistence.jpa.repositories;
 
+import com.gymfinity.flexpal.platform.counseling.domain.model.aggregates.CustomizedPlan;
 import com.gymfinity.flexpal.platform.counseling.domain.model.aggregates.Member;
 import com.gymfinity.flexpal.platform.counseling.domain.model.valueobjects.ProfileId;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -9,8 +10,6 @@ import java.util.Optional;
 
 @Repository
 public interface MemberRepository extends JpaRepository<Member, Long> {
-    Optional<Member> findByEmail(String email);
-    Optional<Member> findByName(String name);
-    Optional<Member> findByCustomizedPlan(Long customizedPlan);
+    Optional<Member> findByCustomizedPlan(CustomizedPlan customizedPlan);
     Optional<Member> findByProfileId(ProfileId profileId);
 }

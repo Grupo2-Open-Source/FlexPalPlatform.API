@@ -34,12 +34,8 @@ public class MemberQueryServiceImpl implements MemberQueryService {
     }
 
     @Override
-    public Optional<Member> handle(GetMemberByNameQuery query) {
-        return memberRepository.findByName(query.memberName());
+    public Optional<Member> handle(GetMemberByProfileIdQuery query) {
+        return memberRepository.findByProfileId(query.profileId());
     }
 
-    @Override
-    public Optional<Member> handle(GetMemberByEmailQuery query) {
-        return memberRepository.findByEmail(query.memberEmail());
-    }
 }

@@ -13,7 +13,5 @@ public interface MemberQueryService {
 
     Optional<Member> handle(GetMemberByCustomizedPlanQuery query);
 
-    Optional<Member> handle(GetMemberByNameQuery query);
-
-    Optional<Member> handle(GetMemberByEmailQuery query);
+    Optional<Member> handle(GetMemberByProfileIdQuery query);
 }

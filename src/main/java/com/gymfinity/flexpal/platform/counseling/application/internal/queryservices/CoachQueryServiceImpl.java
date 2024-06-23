@@ -32,14 +32,4 @@ public class CoachQueryServiceImpl implements CoachQueryService {
     public Optional<Coach> handle(GetCoachBySpecializationQuery query) {
         return coachRepository.findBySpecialization(query.specialization());
     }
-
-    @Override
-    public Optional<Coach> handle(GetCoachByNameQuery query) {
-        return coachRepository.findByName(query.coachName());
-    }
-
-    @Override
-    public Optional<Coach> handle(GetCoachByEmailQuery query) {
-        return coachRepository.findByEmail(query.coachEmail());
-    }
 }

@@ -20,7 +20,7 @@ public class Coach extends AuditableAbstractAggregateRoot<Coach> {
     @Embedded
     private ProfileId profileId;
 
-    @OneToMany(mappedBy = "coach")
+    @OneToMany(mappedBy = "coachId")
     private List<Member> members; // lista de miembros (opcional)
 
     public Coach() {
