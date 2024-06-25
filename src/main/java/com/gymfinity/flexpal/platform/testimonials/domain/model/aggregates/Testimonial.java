@@ -1,7 +1,7 @@
-package com.gymfinity.flexpal.platform.testimonials.model.aggregates;
+package com.gymfinity.flexpal.platform.testimonials.domain.model.aggregates;
 
 import com.gymfinity.flexpal.platform.shared.domain.model.aggregates.AuditableAbstractAggregateRoot;
-import com.gymfinity.flexpal.platform.testimonials.model.valueobjects.ProfileId;
+import com.gymfinity.flexpal.platform.testimonials.domain.model.valueobjects.ProfileId;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import lombok.Getter;
@@ -19,9 +19,9 @@ public class Testimonial extends AuditableAbstractAggregateRoot<Testimonial> {
 
     public Testimonial() { this.testimonial = ""; }
 
-    public Testimonial(ProfileId profileId, String testimonial) {
+    public Testimonial(Long profileId, String testimonial) {
         this();
-        this.profileId = profileId;
+        this.profileId = new ProfileId(profileId);
         this.testimonial = testimonial;
     }
 }

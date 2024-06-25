@@ -1,4 +1,4 @@
-package com.gymfinity.flexpal.platform.testimonials.model.valueobjects;
+package com.gymfinity.flexpal.platform.testimonials.domain.model.valueobjects;
 
 import jakarta.persistence.Embeddable;
 
