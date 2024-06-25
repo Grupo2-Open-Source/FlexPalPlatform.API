@@ -48,4 +48,5 @@ public class SubscriptionController {
 
         return ResponseEntity.ok(profilesResources);
     }
+
 }

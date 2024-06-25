@@ -6,8 +6,10 @@ import com.gymfinity.flexpal.platform.profiles.domain.model.valueobjects.PersonN
 import com.gymfinity.flexpal.platform.profiles.domain.model.valueobjects.UrlImage;
 import com.gymfinity.flexpal.platform.shared.domain.model.aggregates.AuditableAbstractAggregateRoot;
 import jakarta.persistence.*;
+import lombok.Getter;
 
 @Entity
+@Getter
 public class Profile extends AuditableAbstractAggregateRoot<Profile> {
 
     @Embedded

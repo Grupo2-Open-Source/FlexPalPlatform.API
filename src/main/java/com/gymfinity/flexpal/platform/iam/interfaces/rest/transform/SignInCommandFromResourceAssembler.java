@@ -5,6 +5,6 @@ import com.gymfinity.flexpal.platform.iam.interfaces.rest.resources.SignInResour
 
 public class SignInCommandFromResourceAssembler {
     public static SignInCommand toCommandFromResource(SignInResource resource) {
-        return new SignInCommand(resource.username(), resource.password(), resource.firstName(), resource.lastName(), resource.email());
+        return new SignInCommand(resource.username(), resource.password());
     }
 }

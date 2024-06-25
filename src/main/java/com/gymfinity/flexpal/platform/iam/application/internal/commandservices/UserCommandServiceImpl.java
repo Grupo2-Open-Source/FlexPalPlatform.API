@@ -1,5 +1,6 @@
 package com.gymfinity.flexpal.platform.iam.application.internal.commandservices;
 
+import com.gymfinity.flexpal.platform.iam.application.internal.outboundservices.acl.ExternalProfileServices;
 import com.gymfinity.flexpal.platform.iam.application.internal.outboundservices.hashing.HashingService;
 import com.gymfinity.flexpal.platform.iam.application.internal.outboundservices.tokens.TokenService;
 import com.gymfinity.flexpal.platform.iam.domain.model.aggregates.User;
@@ -19,13 +20,15 @@ public class UserCommandServiceImpl implements UserCommandService {
     private final HashingService hashingService;
     private final TokenService tokenService;
     private final RoleRepository roleRepository;
+    private final ExternalProfileServices externalProfileService;
 
     public UserCommandServiceImpl(UserRepository userRepository, HashingService hashingService,
-                                  TokenService tokenService, RoleRepository roleRepository) {
+                                  TokenService tokenService, RoleRepository roleRepository, ExternalProfileServices externalProfileService) {
         this.userRepository = userRepository;
         this.hashingService = hashingService;
         this.tokenService = tokenService;
         this.roleRepository = roleRepository;
+        this.externalProfileService = externalProfileService;
     }
 
 
@@ -39,6 +42,7 @@ public class UserCommandServiceImpl implements UserCommandService {
                                 ()-> new RuntimeException("Role name not" + "found"))).toList();
         var user = new User(command.username(),
                 hashingService.encode(command.password()), command.firstName(), command.lastName(), command.email(), roles);
+        externalProfileService.createProfile(command.firstName(), command.lastName(), command.email());
         userRepository.save(user);
         return userRepository.findByUsername(command.username());
     }
