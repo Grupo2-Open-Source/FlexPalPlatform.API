@@ -19,9 +19,9 @@ public class Testimonial extends AuditableAbstractAggregateRoot<Testimonial> {
 
     public Testimonial() { this.testimonial = ""; }
 
-    public Testimonial(ProfileId profileId, String testimonial) {
+    public Testimonial(Long profileId, String testimonial) {
         this();
-        this.profileId = profileId;
+        this.profileId = new ProfileId(profileId);
         this.testimonial = testimonial;
     }
 }
