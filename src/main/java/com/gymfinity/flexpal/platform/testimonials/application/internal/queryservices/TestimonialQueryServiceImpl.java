@@ -2,14 +2,17 @@ package com.gymfinity.flexpal.platform.testimonials.application.internal.queryse
 
 import com.gymfinity.flexpal.platform.counseling.domain.model.queries.GetAllCoachesQuery;
 import com.gymfinity.flexpal.platform.testimonials.domain.model.aggregates.Testimonial;
+import com.gymfinity.flexpal.platform.testimonials.domain.model.queries.GetAllTestimonialsQuery;
 import com.gymfinity.flexpal.platform.testimonials.domain.model.queries.GetTestimonialByIdQuery;
 import com.gymfinity.flexpal.platform.testimonials.domain.model.queries.GetTestimonialByNameQuery;
 import com.gymfinity.flexpal.platform.testimonials.domain.services.queryservices.TestimonialQueryService;
 import com.gymfinity.flexpal.platform.testimonials.infrastructure.persistence.jpa.respositories.TestimonialRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class TestimonialQueryServiceImpl implements TestimonialQueryService {
 
     private final TestimonialRepository testimonialRepository;
@@ -19,7 +22,7 @@ public class TestimonialQueryServiceImpl implements TestimonialQueryService {
     }
 
     @Override
-    public List<Testimonial> handle(GetAllCoachesQuery query) {
+    public List<Testimonial> handle(GetAllTestimonialsQuery query) {
         return testimonialRepository.findAll();
     }
 

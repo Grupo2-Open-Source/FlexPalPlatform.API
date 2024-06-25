@@ -5,9 +5,11 @@ import com.gymfinity.flexpal.platform.testimonials.domain.model.aggregates.Testi
 import com.gymfinity.flexpal.platform.testimonials.domain.model.commands.CreateTestimonialCommand;
 import com.gymfinity.flexpal.platform.testimonials.domain.services.commandservices.TestimonialCommandService;
 import com.gymfinity.flexpal.platform.testimonials.infrastructure.persistence.jpa.respositories.TestimonialRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+@Service
 public class TestimonialCommandServiceImpl implements TestimonialCommandService {
     private final TestimonialRepository testimonialRepository;
     private final ExternalProfileService externalProfileService;
