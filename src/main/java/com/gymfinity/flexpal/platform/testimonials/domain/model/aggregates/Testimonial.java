@@ -1,7 +1,7 @@
-package com.gymfinity.flexpal.platform.testimonials.model.aggregates;
+package com.gymfinity.flexpal.platform.testimonials.domain.model.aggregates;
 
 import com.gymfinity.flexpal.platform.shared.domain.model.aggregates.AuditableAbstractAggregateRoot;
-import com.gymfinity.flexpal.platform.testimonials.model.valueobjects.ProfileId;
+import com.gymfinity.flexpal.platform.testimonials.domain.model.valueobjects.ProfileId;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import lombok.Getter;

@@ -1,4 +1,4 @@
-package com.gymfinity.flexpal.platform.testimonials.model.commands;
+package com.gymfinity.flexpal.platform.testimonials.domain.model.commands;
 
 public record CreateTestimonialCommand(String firstName, String lastName, String testimonial) {
 }
