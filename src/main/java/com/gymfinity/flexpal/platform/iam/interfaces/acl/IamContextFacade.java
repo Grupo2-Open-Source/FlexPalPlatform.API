@@ -20,16 +20,16 @@ public class IamContextFacade {
         this.userQueryService = userQueryService;
     }
 
-    public Long createUser(String userName, String password) {
-        var signUpCommand = new SignUpCommand(userName, password, List.of(Role.getDefaultaRole()));
+    public Long createUser(String userName, String password, String firstName, String lastName,String email) {
+        var signUpCommand = new SignUpCommand(userName, password, firstName, lastName, email,List.of(Role.getDefaultaRole()));
         var result = userCommandService.handle(signUpCommand);
         if (result.isEmpty()) return  0L;
         return result.get().getId();
     }
 
-    public Long createUser(String userName, String password, List<String> roleNames) {
+    public Long createUser(String userName, String password, String firstName, String lastName, String email,List<String> roleNames) {
         var roles = roleNames != null ? roleNames.stream().map(Role::toRoleFromName).toList() : new ArrayList<Role>();
-        var signUpCommand = new SignUpCommand(userName, password, roles);
+        var signUpCommand = new SignUpCommand(userName, password, firstName, lastName, email, roles);
         var result = userCommandService.handle(signUpCommand);
         if (result.isEmpty()) return  0L;
         return result.get().getId();
