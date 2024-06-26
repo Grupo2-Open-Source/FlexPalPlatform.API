@@ -12,6 +12,7 @@ import com.gymfinity.flexpal.platform.counseling.interfaces.rest.transform.Creat
 import com.gymfinity.flexpal.platform.counseling.interfaces.rest.transform.UpdateCoachCommandFromResourceAssembler;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -29,6 +30,7 @@ public class CoachController {
     }
 
     @PostMapping
+    //@PreAuthorize("hasRole('ROLE_USER')")
     public ResponseEntity<CoachResource> createCoach(@RequestBody CreateCoachResource resource) {
         var createCoachCommand = CreateCoachCommandFromResourceAssembler.toCommandFromResource(resource);
         var coachId = coachCommandService.handle(createCoachCommand);
