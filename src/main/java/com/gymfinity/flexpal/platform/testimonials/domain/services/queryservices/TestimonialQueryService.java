@@ -12,6 +12,6 @@ import java.util.Optional;
 public interface TestimonialQueryService {
     List<Testimonial> handle(GetAllTestimonialsQuery query);
     Optional<Testimonial> handle(GetTestimonialByIdQuery query);
-    Optional<Testimonial> handle(GetTestimonialByNameQuery query);
+    //Optional<Testimonial> handle(GetTestimonialByNameQuery query);
 
 }

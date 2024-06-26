@@ -31,8 +31,8 @@ public class TestimonialQueryServiceImpl implements TestimonialQueryService {
         return testimonialRepository.findById(query.testimonialId());
     }
 
-    @Override
+   /* @Override
     public Optional<Testimonial> handle(GetTestimonialByNameQuery query) {
         return testimonialRepository.findByName(query.firstName(), query.lastName());
-    }
+    }*/
 }

@@ -11,5 +11,5 @@ public interface TestimonialRepository extends JpaRepository<Testimonial, Long> 
     Optional<Testimonial> findById(Long id);
     Optional<Testimonial> findByProfileId(Long profileId);
 
-    Optional<Testimonial> findByName(String firstName, String lastName);
+    //Optional<Testimonial> findByName(String firstName, String lastName);
 }

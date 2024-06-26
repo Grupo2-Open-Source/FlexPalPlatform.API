@@ -5,7 +5,7 @@ import com.gymfinity.flexpal.platform.profiles.interfaces.acl.ProfilesContextFac
 
 import java.util.Optional;
 
-public class ExternalProfileService {
+/*public class ExternalProfileService {
     private final ProfilesContextFacade profilesContextFacade;
 
     public ExternalProfileService(ProfilesContextFacade profilesContextFacade) {
@@ -23,4 +23,4 @@ public class ExternalProfileService {
         if (profileId == 0L) return Optional.empty();
         return Optional.of(new ProfileId(profileId));
     }
-}
+}*/
