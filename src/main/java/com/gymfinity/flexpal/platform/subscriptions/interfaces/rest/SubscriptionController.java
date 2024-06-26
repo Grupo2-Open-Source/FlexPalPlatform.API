@@ -17,7 +17,7 @@ import java.util.Optional;
 import static org.springframework.http.HttpStatus.CREATED;
 
 @RestController
-@RequestMapping("api/v1/subscription")
+@RequestMapping("/api/v1/subscription")
 public class SubscriptionController {
     private final SubscriptionCommandService subscriptionCommandService;
     private final SubscriptionQueryService subscriptionQueryService;
@@ -48,4 +48,5 @@ public class SubscriptionController {
 
         return ResponseEntity.ok(profilesResources);
     }
+
 }

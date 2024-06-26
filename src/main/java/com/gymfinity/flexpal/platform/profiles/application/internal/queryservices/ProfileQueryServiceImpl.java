@@ -22,7 +22,7 @@ public class ProfileQueryServiceImpl implements ProfileQueryService {
 
     @Override
     public Optional<Profile> handle(GetProfileByIdQuery query) {
-        return Optional.empty();
+        return profileRepository.findById(query.profileId());
     }
 
     @Override

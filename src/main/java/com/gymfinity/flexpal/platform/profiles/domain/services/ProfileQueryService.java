@@ -11,8 +11,6 @@ import java.util.Optional;
 public interface ProfileQueryService {
 
     Optional<Profile> handle(GetProfileByIdQuery query);
-
     Optional<Profile> handle(GetProfileByEmailQuery query);
-
     List<Profile> handle(GetAllProfilesQuery query);
 }

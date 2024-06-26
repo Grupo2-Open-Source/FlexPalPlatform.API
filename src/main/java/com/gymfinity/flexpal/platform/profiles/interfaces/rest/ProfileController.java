@@ -2,6 +2,7 @@ package com.gymfinity.flexpal.platform.profiles.interfaces.rest;
 
 import com.gymfinity.flexpal.platform.profiles.domain.model.aggregates.Profile;
 import com.gymfinity.flexpal.platform.profiles.domain.model.queries.GetAllProfilesQuery;
+import com.gymfinity.flexpal.platform.profiles.domain.model.queries.GetProfileByIdQuery;
 import com.gymfinity.flexpal.platform.profiles.domain.services.ProfileCommandService;
 import com.gymfinity.flexpal.platform.profiles.domain.services.ProfileQueryService;
 import com.gymfinity.flexpal.platform.profiles.interfaces.rest.resources.CreateProfileResource;
@@ -17,7 +18,7 @@ import java.util.Optional;
 import static org.springframework.http.HttpStatus.CREATED;
 
 @RestController
-@RequestMapping("api/v1/profiles")
+@RequestMapping("/api/v1/profiles")
 public class ProfileController {
     private final ProfileCommandService profileCommandService;
     private final ProfileQueryService profileQueryService;
@@ -43,8 +44,17 @@ public class ProfileController {
         var profiles = profileQueryService.handle(getAllProfiles);
 
         var profilesResources = profiles.stream().map(
-                ProfileSourceFromEntityAssembler:: toResourceFromEntity).toList();
+                ProfileSourceFromEntityAssembler::toResourceFromEntity).toList();
 
         return ResponseEntity.ok(profilesResources);
+    }
+
+    @GetMapping(value= "/{profileId}")
+    public ResponseEntity<ProfileResource> getProfileById(@PathVariable Long profileId) {
+        var getProfileByIdQuery = new GetProfileByIdQuery(profileId);
+        var profile = profileQueryService.handle(getProfileByIdQuery);
+        if (profile.isEmpty()) return ResponseEntity.badRequest().build();
+        var profileResource = ProfileSourceFromEntityAssembler.toResourceFromEntity(profile.get());
+        return ResponseEntity.ok(profileResource);
     }
 }
